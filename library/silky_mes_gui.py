@@ -1,12 +1,12 @@
-import os
 import ctypes
 import locale
+import os
 import threading
 import tkinter as tk
 from tkinter.filedialog import askopenfilename, askdirectory
 from tkinter.messagebox import showinfo, showwarning, showerror
-from .silky_mes import SilkyMesScript
 
+from .silky_mes import SilkyMesScript
 
 class SilkyMesGUI:
     default_width = 400

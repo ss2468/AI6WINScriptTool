@@ -1,10 +1,11 @@
-import struct
-import os
 import json
-
+import os
+import struct
 
 class SilkyMesScript:
-    default_encoding = "cp932"
+    # default_encoding = "cp932"
+    # fixme 使用SHIFT_JISX0213编码
+    default_encoding = "SHIFT_JISX0213"
     technical_instances = (">", "<")
 
     # [Opcode, struct, name].
@@ -331,7 +332,7 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             args.append([])
             commands.append(current_byte)
             analyzer = str(hex(current_byte))[2:]
-            if (len(analyzer) == 1):
+            if len(analyzer) == 1:
                 analyzer = '0' + analyzer
 
             lib_index = -1
@@ -404,7 +405,7 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             current_byte = current_byte[0]  # Get int from byte in the fastest way possible.
             lib_index = -1
             for i in range(len(self.command_library)):
-                if (current_byte == self.command_library[i][0]):
+                if current_byte == self.command_library[i][0]:
                     lib_index = i
                     break
             if lib_index != -1:
@@ -474,11 +475,11 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             # argument number changing.
 
             if argument in SilkyMesScript.set_I.instances:
-                args_bytes += SilkyMesScript.set_I(argument_list[current_argument], appendix+argument)
+                args_bytes += SilkyMesScript.set_I(argument_list[current_argument], appendix + argument)
             elif argument in SilkyMesScript.set_H.instances:
-                args_bytes += SilkyMesScript.set_H(argument_list[current_argument], appendix+argument)
+                args_bytes += SilkyMesScript.set_H(argument_list[current_argument], appendix + argument)
             elif argument in SilkyMesScript.set_B.instances:
-                args_bytes += SilkyMesScript.set_B(argument_list[current_argument], appendix+argument)
+                args_bytes += SilkyMesScript.set_B(argument_list[current_argument], appendix + argument)
             elif argument in SilkyMesScript.set_S.instances:
                 args_bytes += SilkyMesScript.set_S(argument_list[current_argument], current_encoding)
             current_argument += 1  # Since argument may not change with new command.
@@ -512,11 +513,11 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             if argument in SilkyMesScript.technical_instances:
                 appendix = argument
             elif argument in SilkyMesScript.get_I.instances:
-                arguments_list.append(SilkyMesScript.get_I(in_file, appendix+argument))
+                arguments_list.append(SilkyMesScript.get_I(in_file, appendix + argument))
             elif argument in SilkyMesScript.get_H.instances:
-                arguments_list.append(SilkyMesScript.get_H(in_file, appendix+argument))
+                arguments_list.append(SilkyMesScript.get_H(in_file, appendix + argument))
             elif argument in SilkyMesScript.get_B.instances:
-                arguments_list.append(SilkyMesScript.get_B(in_file, appendix+argument))
+                arguments_list.append(SilkyMesScript.get_B(in_file, appendix + argument))
             elif argument in SilkyMesScript.get_S.instances:
                 leng, result = SilkyMesScript.get_S(current_byte, in_file, current_encoding)
                 arguments_list.append(result)
@@ -551,7 +552,7 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             string += byte
             length += 1
             byte = in_file.read(1)
-        
+
         if mode == 0x0A:
             list_bytes = string.hex(' ').split(' ')
             string = b''
@@ -598,7 +599,6 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
                 return length, string
         else:
             return length, string
-
 
 class SilkyMesScriptError(Exception):
     def __init__(self, message: str):

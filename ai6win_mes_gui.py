@@ -3,9 +3,9 @@ import threading
 import tkinter as tk
 import tkinter.ttk as ttk
 from tkinter.messagebox import showerror
-from library.silky_mes_gui import SilkyMesGUI
-from ai6win_mes import AI6WINScript
 
+from ai6win_mes import AI6WINScript
+from library.silky_mes_gui import SilkyMesGUI
 
 class AI6WINMesGUI(SilkyMesGUI):
     _strings_lib = {
@@ -179,9 +179,7 @@ Sometimes there could be a very big problem: text may not fully get in textbox. 
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self._version_lbl = tk.Label(master=self._root,
-                                     bg='white',
-                                     font=('Helvetica', 12))
+        self._version_lbl = tk.Label(master=self._root, bg='white', font=('Helvetica', 12))
         self._version_lbl.lang_index = 31
 
         self._version = tk.StringVar()
@@ -205,12 +203,12 @@ Sometimes there could be a very big problem: text may not fully get in textbox. 
         """Place widgets of the GUI."""
         if not zlo:
             return
+
         # Top buttons.
         self._rus_btn.place(relx=0.0, rely=0.0, relwidth=0.5, relheight=0.05)
         self._eng_btn.place(relx=0.5, rely=0.0, relwidth=0.5, relheight=0.05)
 
         # Input/output files/dirs choosers widgets.
-
         for num, widget in enumerate(self._mode_rdb):
             widget.place(relx=0.5 * num, rely=0.05, relwidth=0.5, relheight=0.05)
         self._mes_point_lbl.place(relx=0.0, rely=0.1, relwidth=1.0, relheight=0.05)
@@ -224,22 +222,18 @@ Sometimes there could be a very big problem: text may not fully get in textbox. 
         self._version_cmb.place(relx=0.0, rely=0.35, relwidth=1.0, relheight=0.05)
 
         # Commands.
-
         for widget in self._action_btn:
             widget.pack(fill=tk.X)
 
         # Text area.
-
         self._status_txt.pack()
 
         # Help buttons.
-
         self._common_help_btn.pack(fill=tk.X)
         self._usage_help_btn.pack(fill=tk.X)
         self._breaks_help_btn.pack(fill=tk.X)
 
         # And finally label frames.
-
         self._commands_lfr.place(relx=0.0, rely=0.4, relwidth=1.0, relheight=0.2)
         self._status_lfr.place(relx=0.0, rely=0.6, relwidth=1.0, relheight=0.15)
         self._help_lfr.place(relx=0.0, rely=0.75, relwidth=1.0, relheight=0.25)
@@ -297,8 +291,7 @@ Sometimes there could be a very big problem: text may not fully get in textbox. 
         self._lock_activity()
         if self._input_mode.get() == 0:  # File mode.
             self._unlocker_count = 1
-            new_thread = threading.Thread(daemon=False, target=self._assemble_this_mes,
-                                          args=(mes_file, txt_file))
+            new_thread = threading.Thread(daemon=False, target=self._assemble_this_mes, args=(mes_file, txt_file))
             new_thread.start()
         else:  # Dir mode.
             files_to_manage = []
@@ -314,9 +307,6 @@ Sometimes there could be a very big problem: text may not fully get in textbox. 
                     new_file_array.append(rel_mes_name)
                     new_file_array.append(rel_txt_name)
                     files_to_manage.append(new_file_array)
-
-                    # Why did I not initiate file management right away, thou ask?
-
             self._unlocker_count = len(files_to_manage)  # ...That is the answer.
             for file_mes, file_txt in files_to_manage:
                 new_thread = threading.Thread(daemon=False, target=self._assemble_this_mes,

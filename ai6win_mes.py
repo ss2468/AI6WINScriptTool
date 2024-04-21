@@ -1,8 +1,8 @@
-import struct
 import json
 import os
-from library.silky_mes import SilkyMesScript, SilkyMesScriptError
+import struct
 
+from library.silky_mes import SilkyMesScript, SilkyMesScriptError
 
 class AI6WINScript(SilkyMesScript):
     default_version = 1
@@ -167,9 +167,7 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
 
     def assemble(self) -> None:
         """Assemble Silky Engine mes script."""
-
         self._prm, self._first_offsets, self._offsets = self._assemble_offsets_and_parameters()
-
         if self._verbose:
             print("Parameters:", self._prm[0:1])
             print("First offsets:", len(self._first_offsets), self._first_offsets)
@@ -177,7 +175,6 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
         self._assemble_script_file()
 
     # Technical methods for assembling.
-
     def _assemble_script_file(self) -> None:
         """Assemble AI6WIN mes script."""
         in_file = open(self._txt_name, 'r', encoding=self.encoding)
@@ -256,8 +253,11 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
 
         pointer = 0
         message_count = 0
+        row = 1
 
         while True:
+            print(f"{in_file}:{row}")
+            row += 1
             line = in_file.readline()
             if line == '':  # EOF.
                 break
@@ -378,7 +378,7 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             args.append([])
             commands.append(current_byte)
             analyzer = str(hex(current_byte))[2:]
-            if (len(analyzer) == 1):
+            if len(analyzer) == 1:
                 analyzer = '0' + analyzer
 
             lib_index = -1
@@ -451,12 +451,11 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             current_byte = current_byte[0]  # Get int from byte in the fastest way possible.
             lib_index = -1
             for i in range(len(self.command_library[self.version])):
-                if (current_byte == self.command_library[self.version][i][0]):
+                if current_byte == self.command_library[self.version][i][0]:
                     lib_index = i
                     break
             if lib_index != -1:
-                arguments_list = self.get_args(in_file, self.command_library[self.version][lib_index][1], current_byte,
-                                               self.encoding)
+                arguments_list = self.get_args(in_file, self.command_library[self.version][lib_index][1], current_byte, self.encoding)
 
                 if self._hackerman_mode:
                     out_file.write("#1-{}    {}\n".format(hex(current_byte), pointer))
@@ -532,7 +531,6 @@ hackerman_mode -- for true hackers; helps hacking unsupported mes scripts."""
             string += byte
             byte = in_file.read(1)
         return string.decode(encoding=this_encoding)
-
 
 class AI6WINScriptError(SilkyMesScriptError):
     pass
