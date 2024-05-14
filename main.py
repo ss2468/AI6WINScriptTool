@@ -46,7 +46,7 @@ if __name__ == '__main__':
         return allfiles
 
     # 批量拆包
-    path = "C:/Program Files (x86)/AliceSoft/河原崎家の一族２/ELFIMAGE/mes/"
+    path = "C:/Users/Administrator/UntitledProjects/test/mes"
     files = find_suffix(path, ["mes"])
     for i in files:
         base_name = i.replace(".mes", "")
@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     # # 批量打包
     # # 打包可能出现编码问题，搜索cp932或SHIFT_JISX0213
-    # path = "C:/Program Files (x86)/AliceSoft/河原崎家の一族２/ELFIMAGE/txt/"
+    # path = "C:/Users/Administrator/UntitledProjects/test/txt"
     # files = find_suffix(path, ["txt"])
     # for i in files:
     #     base_name = i.replace(".txt", "")
