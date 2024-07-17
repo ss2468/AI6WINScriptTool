@@ -45,8 +45,8 @@ if __name__ == '__main__':
             allfiles.extend(files)
         return allfiles
 
-    # 批量拆包
-    path = "C:/Users/Administrator/UntitledProjects/test/mes"
+    # 批量解压（脚本使用lzss压缩）
+    path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/mes"
     files = find_suffix(path, ["mes"])
     for i in files:
         base_name = i.replace(".mes", "")
@@ -55,9 +55,8 @@ if __name__ == '__main__':
         new_script = AI6WINScript(script_mes, file_txt, verbose=True, debug=False, version=1)
         new_script.disassemble()
 
-    # # 批量打包
-    # # 打包可能出现编码问题，搜索cp932或SHIFT_JISX0213
-    # path = "C:/Users/Administrator/UntitledProjects/test/txt"
+    # # 批量压缩
+    # path = "C:/Users/Administrator/UntitledProjects/Galgame/GalTransl/demo/txt"
     # files = find_suffix(path, ["txt"])
     # for i in files:
     #     base_name = i.replace(".txt", "")

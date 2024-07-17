@@ -5,5 +5,5 @@
 /demo/
 
 # 文件
-*.whl
+*.pyc
 *.rar
